@@ -30,6 +30,7 @@ const createEnvironmentHash = require('./webpack/persistentCache/createEnvironme
 // const MyPlugin = require('../plugins/myPlugin');
 const FileListPlugin = require('../plugins/fileListPlugin');
 const WatchPlugin = require('../plugins/watchPlugin');
+const CleanPlugin = require('../plugins/cleanPlugin');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -567,8 +568,9 @@ module.exports = function (webpackEnv) {
     },
     plugins: [
       // new MyPlugin({ test: "test" }),
-      new FileListPlugin(),
+      // new FileListPlugin(),
       // new WatchPlugin(),
+      new CleanPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
