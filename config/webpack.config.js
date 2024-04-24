@@ -28,9 +28,9 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 // const MyPlugin = require('../plugins/myPlugin');
-const FileListPlugin = require('../plugins/fileListPlugin');
-const WatchPlugin = require('../plugins/watchPlugin');
-const CleanPlugin = require('../plugins/cleanPlugin');
+const FileListPlugin = require('../plugins/FileListPlugin');
+const WatchPlugin = require('../plugins/WatchPlugin');
+const CleanPlugin = require('../plugins/CleanPlugin');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -343,6 +343,13 @@ module.exports = function (webpackEnv) {
     module: {
       strictExportPresence: true,
       rules: [
+        {
+          test: /\.html$/,
+          loader: require.resolve("../loaders/HtmlMinimizeLoader.js"),
+          options: {
+            comments: true // 是否需要保留注释
+          }
+        },
         // Handle node_modules packages that contain sourcemaps
         shouldUseSourceMap && {
           enforce: 'pre',
@@ -557,7 +564,7 @@ module.exports = function (webpackEnv) {
               // its runtime that would otherwise be processed through "file" loader.
               // Also exclude `html` and `json` extensions so they get processed
               // by webpacks internal loaders.
-              exclude: [/^$/, /\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+              exclude: [/^$/, /\.(js|mjs|jsx|ts|tsx)$/, /\.json$/],
               type: 'asset/resource',
             },
             // ** STOP ** Are you adding a new loader?
