@@ -1,7 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 
+import mdHTML from "./README.md";
+import { useEffect } from 'react';
+
 function App() {
+
+  useEffect(() => {
+    const content = document.createElement("div");
+    content.innerHTML = mdHTML;
+    document.body.appendChild(content);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">

@@ -344,12 +344,16 @@ module.exports = function (webpackEnv) {
       strictExportPresence: true,
       rules: [
         {
-          test: /\.html$/,
-          loader: require.resolve("../loaders/HtmlMinimizeLoader.js"),
-          options: {
-            comments: true // 是否需要保留注释
-          }
+          test: /\.md$/,
+          loader: require.resolve("../loaders/MarkdownLoader.js")
         },
+        // {
+        //   test: /\.html$/,
+        //   loader: require.resolve("../loaders/HtmlMinimizeLoader.js"),
+        //   options: {
+        //     comments: true // 是否需要保留注释
+        //   }
+        // },
         // Handle node_modules packages that contain sourcemaps
         shouldUseSourceMap && {
           enforce: 'pre',
@@ -564,7 +568,7 @@ module.exports = function (webpackEnv) {
               // its runtime that would otherwise be processed through "file" loader.
               // Also exclude `html` and `json` extensions so they get processed
               // by webpacks internal loaders.
-              exclude: [/^$/, /\.(js|mjs|jsx|ts|tsx)$/, /\.json$/],
+              exclude: [/^$/, /\.(js|mjs|jsx|ts|tsx)$/, /\.json$/, /\.html$/, /\.md$/],
               type: 'asset/resource',
             },
             // ** STOP ** Are you adding a new loader?
@@ -577,7 +581,7 @@ module.exports = function (webpackEnv) {
       // new MyPlugin({ test: "test" }),
       // new FileListPlugin(),
       // new WatchPlugin(),
-      new CleanPlugin(),
+      // new CleanPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
