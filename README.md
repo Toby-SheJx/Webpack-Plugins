@@ -1,2 +1,2 @@
-# Webpack-Plugins
-My original easy webpack plugins.
+# Webpack-Plugins-And-Loaders
+My original easy webpack plugins and Loaders.
